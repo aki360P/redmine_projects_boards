@@ -1,0 +1,6 @@
+# 日本語 for Rails i18n
+ja:
+  project_module_redmine_empty_plugin: "プロジェクトボード"
+  permission_rpjb_board_view: "表示"
+  
+  label_rpjb: "プロジェクト一覧"
