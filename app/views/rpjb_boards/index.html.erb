@@ -1,28 +1,32 @@
 
+<!-- library -->
+<%= stylesheet_link_tag 'datatables.min.css',:plugin => 'redmine_projects_boards' %>
+<%= javascript_include_tag 'jquery-3.3.1.min.js',:plugin => 'redmine_projects_boards' %>
+<%= javascript_include_tag 'datatables.min.js',:plugin => 'redmine_projects_boards' %>
 
 
-<div id='rmlb_main'>
+<!-- assets -->
 
-  <% ii = 0 %>
-  <% unless @rpjd_prj1.nil? %>
-    <% @rpjd_prj1.each do |prj1| %>
-        <br>
-        <h3><%= prj1.name %></h3>
-        
-        <div id='rpjb_board_<%= ii %>'>
-        
 
-        <table>
-          <tr>
-            <th>id</th>
+<div id='rpjb_main'>
+
+  <h2>Project Board</h2>
+  <br>
+    <% unless @rpjd_prj1.nil? %>
+        <table id='rpjb' class='display' style='width:80%'>
+          <thead><tr>
+            <th>parent_project</th>
+            <th>project id</th>
             <th>name</th>
-            
             <% CustomField.where("type = ?", 'ProjectCustomField').each do |jj| %>
               <th><%= jj.name %></th>
             <% end %>
-          </tr>
+          </tr></thead>
+          <tbody>
+          <% @rpjd_prj1.each do |prj1| %>
           <% Project.where("parent_id = ?", prj1.id).each do |prj2| %>
           <tr>
+            <td><%= prj1.name %></td>
             <td><%= prj2.id %></td>
             <td><%= prj2.name %></td>
             <% prj2.custom_values.each do |jj| %>
@@ -30,9 +34,9 @@
             <% end %>
           </tr>
           <% end %>
+          </tbody>
         </table>
-        　
-        <% ii = ii + 1 %>
+ 
         </div>  
           
 
@@ -53,6 +57,38 @@
     var baseUrl = "<%= config.relative_url_root %>";
     var project_id = "<%= @project.id %>";
 
+
+
+$(document).ready(function() {
+
+        $('#rpjb').DataTable( {
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.header()) )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        },
+        
+            "ScrollX": true,
+            "paging":   false,
+            "ordering": false
+        
+    } );
+} );
 </script>
 
 
