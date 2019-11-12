@@ -1,3 +1,4 @@
+class RpjbBoardsController < ApplicationController
   unloadable
   before_action :find_user, :find_project
   before_action :authorize
