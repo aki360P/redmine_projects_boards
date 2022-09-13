@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_projects_boards do
   name 'Redmine project board plugin'
   author 'Akinori Iwasaki'
   description 'View project boards with all project customfields'
-  version '0.1.0'
+  version '0.2.0'
   url 'https://github.com/aki360P/redmine_projects_boards'
   
   project_module :redmine_projects_boards do
