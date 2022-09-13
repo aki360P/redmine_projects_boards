@@ -4,6 +4,6 @@
   
   
   <%- custom_fields = CustomField.where(type: 'ProjectCustomField') %>
-  <p><%= content_tag(:label, l(:label_rpjb_cf1)) %><%= select_tag('settings[rpjb_cf1]', options_for_select(custom_fields.collect{|c| [c.name, c.id]}, @rpjb_setting['rpjb_cf1'])) %></p>
+  <p><%= content_tag(:label, l(:label_rpjb_cf1)) %><%= select_tag('settings[rpjb_cf1]', options_for_select(custom_fields.collect{|c| [c.name, c.id]}, settings['rpjb_cf1'])) %></p>
 </div>
 

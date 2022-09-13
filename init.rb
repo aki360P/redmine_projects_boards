@@ -20,6 +20,6 @@ Redmine::Plugin.register :redmine_projects_boards do
   # setting
   settings  partial: 'rpjb_global_settings/show',
             default: {
-              'rpbd_cf1' => '1'
+              'rpjb_cf1' => '1'
                }
 end
